@@ -12,11 +12,10 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 50)
+    @Column(name = "nombre", length = 50)
     private String name;
-    @Column(length = 50)
+    @Column(name = "direccion", length = 50)
     private String address;
-    @Column(length = 9)
+    @Column(name = "telefono", length = 9)
     private String phone;
-    private String observation;
 }

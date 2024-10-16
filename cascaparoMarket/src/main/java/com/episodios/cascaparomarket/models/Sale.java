@@ -14,7 +14,7 @@ import java.util.Set;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     private Date date;
     @Column(columnDefinition = "TEXT")
     private String observation;
