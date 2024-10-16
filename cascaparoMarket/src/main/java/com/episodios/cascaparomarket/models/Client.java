@@ -4,20 +4,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Entity
 @Getter
 @Setter
 
-public class Product {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 20)
+    @Column(length = 50)
     private String name;
-    @Column(columnDefinition = "TEXT")
-    private String description;
-    @Column(precision = 10, scale = 2)
-    private BigDecimal unitPrice;
+    @Column(length = 50)
+    private String address;
+    @Column(length = 9)
+    private String phone;
+    private String observation;
 }
