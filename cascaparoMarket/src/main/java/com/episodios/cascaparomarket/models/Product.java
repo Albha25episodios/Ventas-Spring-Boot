@@ -10,14 +10,15 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 
+@Table(name = "producto")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 20)
-    private String name;
+    private String nombre;
     @Column(columnDefinition = "TEXT")
-    private String description;
+    private String descripcion;
     @Column(precision = 10, scale = 2)
-    private BigDecimal unitPrice;
+    private BigDecimal precioUnitario;
 }

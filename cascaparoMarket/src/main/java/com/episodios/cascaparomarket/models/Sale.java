@@ -11,15 +11,16 @@ import java.util.Set;
 @Getter
 @Setter
 
+@Table(name = "venta")
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
+    private Date fecha;
     @Column(columnDefinition = "TEXT")
-    private String observation;
+    private String observacion;
     @ManyToOne
-    private Client client;
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Detail> details;
+    private Client cliente;
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Detail> detalles;
 }

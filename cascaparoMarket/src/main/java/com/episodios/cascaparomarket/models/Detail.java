@@ -10,15 +10,16 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 
+@Table(name = "ventaDetalle")
 public class Detail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private Sale sale;
+    private Sale venta;
     @ManyToOne
-    private Product product;
-    private Integer quantity;
+    private Product producto;
+    private Integer cantidad;
     @Column(precision = 10, scale = 2)
-    private BigDecimal unitPrice;
+    private BigDecimal precioUnitario;
 }
