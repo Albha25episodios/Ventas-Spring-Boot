@@ -1,6 +1,9 @@
 package com.episodios.cascaparomarket.controllers;
 
+import com.episodios.cascaparomarket.dto.VentaDTO;
+import com.episodios.cascaparomarket.models.Client;
 import com.episodios.cascaparomarket.models.Sale;
+import com.episodios.cascaparomarket.repository.ClientRepository;
 import com.episodios.cascaparomarket.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ventas")
+@RequestMapping("/api/sales")
 public class SaleController {
     @Autowired
     private SaleRepository saleRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     @CrossOrigin
     @GetMapping
@@ -31,7 +36,7 @@ public class SaleController {
 
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<Sale> createSale(@RequestBody Sale sale){
+    public ResponseEntity<Sale> createSale(@RequestBody Sale sale) {
         Sale savedSale = saleRepository.save(sale);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedSale);
     }

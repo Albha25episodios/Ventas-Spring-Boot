@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,11 +16,9 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date fecha;
+    private LocalDate fecha;
     @Column(columnDefinition = "TEXT")
     private String observacion;
     @ManyToOne
     private Client cliente;
-    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Detail> detalles;
 }
