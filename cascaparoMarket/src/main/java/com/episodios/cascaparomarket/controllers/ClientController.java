@@ -1,7 +1,9 @@
 package com.episodios.cascaparomarket.controllers;
 
+import com.episodios.cascaparomarket.dto.ClienteVentasDTO;
 import com.episodios.cascaparomarket.models.Client;
 import com.episodios.cascaparomarket.repository.ClientRepository;
+import com.episodios.cascaparomarket.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private ClientService clientService;
 
     //this function return all tuples of the table client
     @CrossOrigin
@@ -61,5 +65,11 @@ public class ClientController {
         }
         clientRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @CrossOrigin
+    @GetMapping("/sales/{id}")
+    public List<ClienteVentasDTO> costoVentasPorCliente(@PathVariable Long id) {
+        return clientService.totalVentasPorCliente(id);
     }
 }

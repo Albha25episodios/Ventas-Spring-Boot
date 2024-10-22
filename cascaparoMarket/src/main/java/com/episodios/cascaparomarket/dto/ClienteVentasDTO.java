@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Data
-public class VentaDTO {
-    private LocalDate fecha;
-    private String observacion;
+public class ClienteVentasDTO {
     private Long idCliente;
+    private Long idVenta;
+    private BigDecimal total;
 }

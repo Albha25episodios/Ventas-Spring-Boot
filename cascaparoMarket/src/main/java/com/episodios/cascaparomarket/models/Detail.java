@@ -22,4 +22,8 @@ public class Detail {
     private Integer cantidad;
     @Column(precision = 10, scale = 2)
     private BigDecimal precioUnitario;
+
+    public Long getVenta() {
+        return venta.getId();
+    }
 }
