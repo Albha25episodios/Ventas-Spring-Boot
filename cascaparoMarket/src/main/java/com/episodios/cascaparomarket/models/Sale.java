@@ -1,7 +1,9 @@
 package com.episodios.cascaparomarket.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Table(name = "venta")
 public class Sale {
@@ -24,8 +28,6 @@ public class Sale {
     private Client cliente;
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
     private List<Detail> details;
-
-
 
     public Long getCliente() {
         return cliente.getId();

@@ -1,7 +1,9 @@
 package com.episodios.cascaparomarket.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -9,6 +11,8 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Table(name = "producto")
 public class Product {
@@ -19,6 +23,5 @@ public class Product {
     private String nombre;
     @Column(columnDefinition = "TEXT")
     private String descripcion;
-    @Column(precision = 10, scale = 2)
-    private BigDecimal precioUnitario;
+    private Double precioUnitario;
 }

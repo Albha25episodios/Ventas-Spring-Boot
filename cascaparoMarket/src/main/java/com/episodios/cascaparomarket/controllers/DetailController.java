@@ -25,26 +25,20 @@ public class DetailController {
     @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Detail> getDetailById(@PathVariable Long id) {
-        Optional<Detail> detail = detailRepository.findById(id);
-        return detail.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return detailRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @CrossOrigin
     @PostMapping
     public ResponseEntity<Detail> createDetail(@RequestBody Detail detail) {
-        Detail newDetail = detailRepository.save(detail);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newDetail);
+        return ResponseEntity.status(HttpStatus.CREATED).body(detailRepository.save(detail));
     }
 
     @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Detail> updateDetail(@RequestBody Detail detail, @PathVariable Long id) {
-        if (!detailRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
         detail.setId(id);
-        detailRepository.save(detail);
-        return ResponseEntity.ok(detail);
+        return detailRepository.existsById(id) ? ResponseEntity.ok(detail) : ResponseEntity.notFound().build();
     }
 
     @CrossOrigin

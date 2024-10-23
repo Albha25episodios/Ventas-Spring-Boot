@@ -26,26 +26,20 @@ public class ProductController {
     @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return productRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @CrossOrigin
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product newProduct = productRepository.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(product));
     }
 
     @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        if (!productRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
         product.setId(id);
-        productRepository.save(product);
-        return ResponseEntity.ok(product);
+        return productRepository.existsById(id) ? ResponseEntity.ok(productRepository.save(product)) : ResponseEntity.notFound().build();
     }
 
     @CrossOrigin

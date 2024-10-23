@@ -34,23 +34,15 @@ public class SaleController {
     @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Sale> getSaleById(@PathVariable Long id){
-        Optional<Sale> sale = saleRepository.findById(id);
-        return sale.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return saleRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @CrossOrigin
     @PostMapping
     public ResponseEntity<Sale> createSale(@RequestBody VentaDTO ventaDTO) {
-        Optional<Client> client = clientRepository.findById(ventaDTO.getIdCliente());
-        if(client.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        Sale venta = new Sale();
-        venta.setFecha(ventaDTO.getFecha());
-        venta.setObservacion(ventaDTO.getObservacion());
-        venta.setCliente(client.get());
-        Sale savedSale = saleRepository.save(venta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedSale);
+        return clientRepository.findById(ventaDTO.getIdCliente())
+                .map((client1, ventaDTO) -> ResponseEntity.ok(saleRepository.save(new Sale(ventaDTO.getFecha(), ventaDTO.getObservacion(), client1))))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @CrossOrigin
@@ -76,7 +68,7 @@ public class SaleController {
 
     @CrossOrigin
     @GetMapping("{id}/total")
-    public BigDecimal totalPorVenta(@PathVariable Long id) {
+    public Double totalPorVenta(@PathVariable Long id) {
         return saleService.totalPorVenta(id);
     }
 }

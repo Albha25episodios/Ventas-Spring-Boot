@@ -1,38 +1,24 @@
 package com.episodios.cascaparomarket.services;
 
 import com.episodios.cascaparomarket.dto.ClienteVentasDTO;
-import com.episodios.cascaparomarket.models.Client;
-import com.episodios.cascaparomarket.models.Sale;
 import com.episodios.cascaparomarket.repository.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private SaleService saleService;
+    private final ClientRepository clientRepository;
+    private final SaleService saleService;
 
+    //CONSTRUCTOR
+    public ClientService(SaleService saleService, ClientRepository clientRepository) {
+        this.saleService = saleService;
+        this.clientRepository = clientRepository;
+    }
+
+    //*********************************** MéTODOS ***********************************
     public List<ClienteVentasDTO> totalVentasPorCliente (Long idCliente) {
-        Optional<Client> client = clientRepository.findById(idCliente);
-        if(client.isEmpty()){
-            throw new RuntimeException("Cliente no encontrado");
-        }
-
-        List<ClienteVentasDTO> ventasDTOS = new ArrayList<>();
-        List<Sale> sales = client.get().getVentas();
-        for (Sale sale : sales) {
-            ClienteVentasDTO v = new ClienteVentasDTO();
-            v.setIdCliente(sale.getCliente());
-            v.setIdVenta(sale.getId());
-            v.setTotal(saleService.totalPorVenta(sale.getId()));
-            ventasDTOS.add(v);
-        }
-        return ventasDTOS;
+        return clientRepository.findById(idCliente).map(client -> client.getVentas().stream().map(sale -> new ClienteVentasDTO(sale.getCliente(), sale.getId(), saleService.totalPorVenta(sale.getId()))).collect(Collectors.toList())).orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
     }
 }
