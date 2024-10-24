@@ -1,29 +1,24 @@
 package com.episodios.cascaparomarket.controllers;
 
 import com.episodios.cascaparomarket.dto.VentaDTO;
-import com.episodios.cascaparomarket.models.Client;
 import com.episodios.cascaparomarket.models.Sale;
 import com.episodios.cascaparomarket.repository.ClientRepository;
 import com.episodios.cascaparomarket.repository.SaleRepository;
 import com.episodios.cascaparomarket.services.SaleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/sales")
+@RequiredArgsConstructor
 public class SaleController {
-    @Autowired
-    private SaleRepository saleRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private SaleService saleService;
+    private final SaleRepository saleRepository;
+    private final ClientRepository clientRepository;
+    private final SaleService saleService;
 
     @CrossOrigin
     @GetMapping
@@ -34,26 +29,28 @@ public class SaleController {
     @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Sale> getSaleById(@PathVariable Long id){
-        return saleRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return this.saleRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @CrossOrigin
     @PostMapping
     public ResponseEntity<Sale> createSale(@RequestBody VentaDTO ventaDTO) {
         return clientRepository.findById(ventaDTO.getIdCliente())
-                .map((client1, ventaDTO) -> ResponseEntity.ok(saleRepository.save(new Sale(ventaDTO.getFecha(), ventaDTO.getObservacion(), client1))))
+                .map(client -> {
+                    Sale sale = new Sale();
+                    sale.setFecha(ventaDTO.getFecha());
+                    sale.setObservacion(ventaDTO.getObservacion());
+                    sale.setCliente(client);
+                    return ResponseEntity.status(HttpStatus.CREATED).body(saleRepository.save(sale));
+                })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Sale> updateSale(@RequestBody Sale sale, @PathVariable Long id){
-        if(!saleRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
         sale.setId(id);
-        Sale updateSale = saleRepository.save(sale);
-        return ResponseEntity.ok(updateSale);
+        return saleRepository.existsById(id)?ResponseEntity.ok(saleRepository.save(sale)):ResponseEntity.notFound().build();
     }
 
     @CrossOrigin
