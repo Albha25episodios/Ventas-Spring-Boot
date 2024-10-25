@@ -1,7 +1,10 @@
 package com.episodios.cascaparomarket.controllers;
 
+import com.episodios.cascaparomarket.dto.TotalProductosDTO;
 import com.episodios.cascaparomarket.models.Product;
 import com.episodios.cascaparomarket.repository.ProductRepository;
+import com.episodios.cascaparomarket.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @CrossOrigin
     @GetMapping
@@ -50,5 +54,11 @@ public class ProductController {
         }
         productRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @CrossOrigin
+    @GetMapping("/total")
+    public List<TotalProductosDTO> totalCompradoPorProducto () {
+        return productService.cantidadTotalProductos();
     }
 }

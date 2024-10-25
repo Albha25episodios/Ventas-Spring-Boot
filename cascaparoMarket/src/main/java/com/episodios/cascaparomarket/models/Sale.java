@@ -24,7 +24,7 @@ public class Sale {
     @Column(columnDefinition = "TEXT")
     private String observacion;
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    //@JoinColumn(name = "cliente_id")
     private Client cliente;
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
     private List<Detail> details;

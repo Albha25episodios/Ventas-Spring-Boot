@@ -2,8 +2,6 @@ package com.episodios.cascaparomarket.dto;
 
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @NoArgsConstructor

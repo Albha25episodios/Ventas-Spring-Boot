@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +25,6 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String descripcion;
     private Double precioUnitario;
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    private List<Detail> details;
 }

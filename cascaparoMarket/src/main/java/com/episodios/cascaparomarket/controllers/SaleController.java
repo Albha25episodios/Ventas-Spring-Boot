@@ -1,5 +1,6 @@
 package com.episodios.cascaparomarket.controllers;
 
+import com.episodios.cascaparomarket.dto.ReciboDTO;
 import com.episodios.cascaparomarket.dto.VentaDTO;
 import com.episodios.cascaparomarket.models.Sale;
 import com.episodios.cascaparomarket.repository.ClientRepository;
@@ -64,8 +65,8 @@ public class SaleController {
     }
 
     @CrossOrigin
-    @GetMapping("{id}/total")
-    public Double totalPorVenta(@PathVariable Long id) {
-        return saleService.totalPorVenta(id);
+    @GetMapping("recibo/{id}")
+    public ReciboDTO realizarRecibo (@PathVariable Long id) {
+        return this.saleService.reciboDeVenta(id);
     }
 }

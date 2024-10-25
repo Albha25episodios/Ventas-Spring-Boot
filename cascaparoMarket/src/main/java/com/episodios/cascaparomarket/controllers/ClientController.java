@@ -4,6 +4,7 @@ import com.episodios.cascaparomarket.dto.ClienteVentasDTO;
 import com.episodios.cascaparomarket.models.Client;
 import com.episodios.cascaparomarket.repository.ClientRepository;
 import com.episodios.cascaparomarket.services.ClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/clients")
 
 public class ClientController {
     private final ClientRepository clientRepository;
     private final ClientService clientService;
-
-    public ClientController(ClientRepository clientRepository, ClientService clientService) {
-        this.clientRepository = clientRepository;
-        this.clientService = clientService;
-    }
 
     //this function return all tuples of the table client
     @CrossOrigin

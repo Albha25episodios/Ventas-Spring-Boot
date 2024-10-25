@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Entity
 @Getter
 @Setter
@@ -31,4 +29,5 @@ public class Detail {
     public Long getVenta() {
         return venta.getId();
     }
+    public Long getProducto() {return producto.getId();}
 }
