@@ -1,8 +1,11 @@
 package com.episodios.cascaparomarket.services;
 
-import com.episodios.cascaparomarket.dto.ClienteVentasDTO;
-import com.episodios.cascaparomarket.repository.ClientRepository;
+import com.episodios.cascaparomarket.dtos.ClientDTO;
+import com.episodios.cascaparomarket.dtos.ClienteVentasDTO;
+import com.episodios.cascaparomarket.models.Client;
+import com.episodios.cascaparomarket.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +15,7 @@ import java.util.stream.Collectors;
 public class ClientService {
     private final ClientRepository clientRepository;
     private final SaleService saleService;
+    private final ModelMapper modelMapper;
 
     //*********************************************** MÉTODOS ***********************************************
 
@@ -23,5 +27,13 @@ public class ClientService {
                         saleService.totalPorVenta(sale.getId())))
                         .collect(Collectors.toList()))
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+    }
+
+    public ClientDTO convertToDto (Client client) {
+        return modelMapper.map(client, ClientDTO.class);
+    }
+
+    public List<ClientDTO> getClientsDto() {
+        return clientRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 }

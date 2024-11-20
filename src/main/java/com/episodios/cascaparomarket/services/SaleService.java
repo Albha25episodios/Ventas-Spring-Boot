@@ -1,16 +1,10 @@
 package com.episodios.cascaparomarket.services;
 
-import com.episodios.cascaparomarket.dto.ClienteDTO;
-import com.episodios.cascaparomarket.dto.DetalleDTO;
-import com.episodios.cascaparomarket.dto.ProductoDTO;
-import com.episodios.cascaparomarket.dto.ReciboDTO;
-import com.episodios.cascaparomarket.repository.ClientRepository;
-import com.episodios.cascaparomarket.repository.ProductRepository;
-import com.episodios.cascaparomarket.repository.SaleRepository;
+import com.episodios.cascaparomarket.repositories.ClientRepository;
+import com.episodios.cascaparomarket.repositories.ProductRepository;
+import com.episodios.cascaparomarket.repositories.SaleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +23,7 @@ public class SaleService {
                         .mapToDouble(detail -> detail.getPrecioUnitario()*detail.getCantidad()).sum())
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
     }
-
+    /*
     // ---------------recibo---------------------------
     public ReciboDTO reciboDeVenta (Long idVenta) {
         return saleRepository.findById(idVenta).map(sale -> {
@@ -47,7 +41,8 @@ public class SaleService {
                     ).toList();
             return new ReciboDTO(
                     clientRepository.findById(sale.getCliente()).map(
-                            client -> new ClienteDTO(
+                            client -> new ClientDTO(
+                                    client.getId(),
                                     client.getNombre(),
                                     client.getDireccion(),
                                     client.getTelefono()
@@ -57,6 +52,6 @@ public class SaleService {
                     detalles.stream().mapToDouble(DetalleDTO::getTotalProducto).sum()
             );
         }).orElseThrow(() -> new RuntimeException("Venta no encontrada"));
-    }
+    }*/
 }
 

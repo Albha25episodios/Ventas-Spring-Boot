@@ -1,4 +1,4 @@
-package com.episodios.cascaparomarket.repository;
+package com.episodios.cascaparomarket.repositories;
 
 import com.episodios.cascaparomarket.models.Client;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,17 +1,15 @@
 package com.episodios.cascaparomarket.controllers;
 
-import com.episodios.cascaparomarket.dto.TotalProductosDTO;
+import com.episodios.cascaparomarket.dtos.TotalProductosDTO;
 import com.episodios.cascaparomarket.models.Product;
-import com.episodios.cascaparomarket.repository.ProductRepository;
+import com.episodios.cascaparomarket.repositories.ProductRepository;
 import com.episodios.cascaparomarket.services.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor

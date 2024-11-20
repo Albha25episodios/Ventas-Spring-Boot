@@ -1,6 +1,5 @@
-package com.episodios.cascaparomarket.dto;
+package com.episodios.cascaparomarket.dtos;
 
-import com.episodios.cascaparomarket.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

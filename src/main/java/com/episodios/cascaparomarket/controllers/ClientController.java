@@ -1,8 +1,9 @@
 package com.episodios.cascaparomarket.controllers;
 
-import com.episodios.cascaparomarket.dto.ClienteVentasDTO;
+import com.episodios.cascaparomarket.dtos.ClientDTO;
+import com.episodios.cascaparomarket.dtos.ClienteVentasDTO;
 import com.episodios.cascaparomarket.models.Client;
-import com.episodios.cascaparomarket.repository.ClientRepository;
+import com.episodios.cascaparomarket.repositories.ClientRepository;
 import com.episodios.cascaparomarket.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,8 +23,8 @@ public class ClientController {
     //this function return all tuples of the table client
     @CrossOrigin
     @GetMapping
-    public List<Client> getClients() {
-        return clientRepository.findAll();
+    public List<ClientDTO> getClients() {
+        return clientService.getClientsDto();
     }
 
     //this function find a client by id and return this

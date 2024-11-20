@@ -1,14 +1,13 @@
 package com.episodios.cascaparomarket.controllers;
 
 import com.episodios.cascaparomarket.models.Detail;
-import com.episodios.cascaparomarket.repository.DetailRepository;
+import com.episodios.cascaparomarket.repositories.DetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/details")

@@ -1,10 +1,10 @@
 package com.episodios.cascaparomarket.controllers;
 
-import com.episodios.cascaparomarket.dto.ReciboDTO;
-import com.episodios.cascaparomarket.dto.VentaDTO;
+import com.episodios.cascaparomarket.dtos.ReciboDTO;
+import com.episodios.cascaparomarket.dtos.VentaDTO;
 import com.episodios.cascaparomarket.models.Sale;
-import com.episodios.cascaparomarket.repository.ClientRepository;
-import com.episodios.cascaparomarket.repository.SaleRepository;
+import com.episodios.cascaparomarket.repositories.ClientRepository;
+import com.episodios.cascaparomarket.repositories.SaleRepository;
 import com.episodios.cascaparomarket.services.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

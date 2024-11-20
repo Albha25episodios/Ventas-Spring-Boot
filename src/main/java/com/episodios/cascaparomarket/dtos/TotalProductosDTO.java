@@ -1,4 +1,4 @@
-package com.episodios.cascaparomarket.dto;
+package com.episodios.cascaparomarket.dtos;
 
 import lombok.*;
 

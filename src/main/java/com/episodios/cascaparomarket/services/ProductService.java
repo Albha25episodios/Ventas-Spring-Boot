@@ -1,8 +1,8 @@
 package com.episodios.cascaparomarket.services;
 
-import com.episodios.cascaparomarket.dto.TotalProductosDTO;
+import com.episodios.cascaparomarket.dtos.TotalProductosDTO;
 import com.episodios.cascaparomarket.models.Detail;
-import com.episodios.cascaparomarket.repository.ProductRepository;
+import com.episodios.cascaparomarket.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

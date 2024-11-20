@@ -1,4 +1,4 @@
-package com.episodios.cascaparomarket.dto;
+package com.episodios.cascaparomarket.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class ReciboDTO {
-    private ClienteDTO cliente;
+    private ClientDTO cliente;
     private List<DetalleDTO> detallesVenta;
     private Double valorTotal;
 }
