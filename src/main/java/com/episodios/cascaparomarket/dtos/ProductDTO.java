@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DetailDTO {
-    private Long id;
-    private ProductoDTO producto;
-    private Integer cantidad;
-    private Double precioUnitario;
+public class ProductDTO {
+    private Long idProducto;
+    private String nombreProducto;
+    private String descripcionProducto;
+    private Double precioUnitarioProducto;
 }

@@ -1,17 +1,16 @@
 package com.episodios.cascaparomarket.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDTO {
+public class ClientSaleDTO {
     private Long idCliente;
     private String nombreCliente;
     private String direccionCliente;
     private String telefonoCliente;
+    private List<SaleDTO> ventasCliente;
 }

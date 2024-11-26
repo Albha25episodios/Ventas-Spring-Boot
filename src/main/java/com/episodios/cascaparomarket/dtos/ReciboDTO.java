@@ -13,5 +13,4 @@ import java.util.List;
 public class ReciboDTO {
     private ClientDTO cliente;
     private List<DetalleDTO> detallesVenta;
-    private Double valorTotal;
 }

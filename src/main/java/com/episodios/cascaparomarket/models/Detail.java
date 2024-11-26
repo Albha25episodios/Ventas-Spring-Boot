@@ -21,13 +21,7 @@ public class Detail {
     private Sale venta;
     @ManyToOne
     private Product producto;
-
     private Integer cantidad;
-
     private Double precioUnitario;
 
-    public Long getVenta() {
-        return venta.getId();
-    }
-    public Long getProducto() {return producto.getId();}
 }

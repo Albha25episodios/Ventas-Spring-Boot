@@ -1,5 +1,6 @@
 package com.episodios.cascaparomarket.controllers;
 
+import com.episodios.cascaparomarket.dtos.ProductDTO;
 import com.episodios.cascaparomarket.dtos.TotalProductosDTO;
 import com.episodios.cascaparomarket.models.Product;
 import com.episodios.cascaparomarket.repositories.ProductRepository;
@@ -27,9 +28,12 @@ public class ProductController {
 
     @CrossOrigin
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return productRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+        return productRepository.findById(id)
+                .map(product -> ResponseEntity.ok(productService.toDto(product)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @CrossOrigin
     @PostMapping

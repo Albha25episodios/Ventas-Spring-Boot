@@ -23,35 +23,5 @@ public class SaleService {
                         .mapToDouble(detail -> detail.getPrecioUnitario()*detail.getCantidad()).sum())
                 .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
     }
-    /*
-    // ---------------recibo---------------------------
-    public ReciboDTO reciboDeVenta (Long idVenta) {
-        return saleRepository.findById(idVenta).map(sale -> {
-            List<DetalleDTO> detalles = sale.getDetails()
-                    .stream().map(detail ->
-                            new DetalleDTO(
-                                    productRepository.findById(detail.getProducto())
-                                            .map(product -> new ProductoDTO(
-                                                    product.getNombre(),
-                                                    product.getDescripcion(),
-                                                    product.getPrecioUnitario()))
-                                            .orElseThrow(() -> new RuntimeException("Producto no encontrado")),
-                                    detail.getCantidad(),
-                                    detail.getPrecioUnitario() * detail.getCantidad())
-                    ).toList();
-            return new ReciboDTO(
-                    clientRepository.findById(sale.getCliente()).map(
-                            client -> new ClientDTO(
-                                    client.getId(),
-                                    client.getNombre(),
-                                    client.getDireccion(),
-                                    client.getTelefono()
-                            )
-                    ).orElseThrow(() -> new RuntimeException("Cliente no encontrado")),
-                    detalles,
-                    detalles.stream().mapToDouble(DetalleDTO::getTotalProducto).sum()
-            );
-        }).orElseThrow(() -> new RuntimeException("Venta no encontrada"));
-    }*/
 }
 

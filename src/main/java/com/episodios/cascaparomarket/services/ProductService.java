@@ -1,9 +1,12 @@
 package com.episodios.cascaparomarket.services;
 
+import com.episodios.cascaparomarket.dtos.ProductDTO;
 import com.episodios.cascaparomarket.dtos.TotalProductosDTO;
 import com.episodios.cascaparomarket.models.Detail;
+import com.episodios.cascaparomarket.models.Product;
 import com.episodios.cascaparomarket.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ModelMapper productMapper;
 
     //*********************************************** MÉTODOS ***********************************************
 
@@ -33,5 +37,9 @@ public class ProductService {
                                 product.getNombre(),
                                 this.cantidadTotalPorProducto(product.getId())))
                 .collect(Collectors.toList());
+    }
+
+    public ProductDTO toDto (Product product) {
+        return productMapper.map(product, ProductDTO.class);
     }
 }

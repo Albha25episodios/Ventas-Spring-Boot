@@ -64,9 +64,9 @@ public class SaleController {
         return ResponseEntity.noContent().build();
     }
 
-    @CrossOrigin
+    /*@CrossOrigin
     @GetMapping("recibo/{id}")
     public ReciboDTO realizarRecibo (@PathVariable Long id) {
         return this.saleService.reciboDeVenta(id);
-    }
+    }*/
 }
