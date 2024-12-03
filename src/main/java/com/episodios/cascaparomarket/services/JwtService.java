@@ -5,9 +5,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecretJwk;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
@@ -19,22 +21,22 @@ public class JwtService {
 
     private static final String SECRET_KEY = "58E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
-    public String getToken(UserDetails user) {
-        return getToken(new HashMap<>(), user);
+    public String getToken(User user) {
+        return buildToken(user);
     }
 
-    private <V, K> String getToken(HashMap<K,V> kvHashMap, UserDetails user) {
+    private String buildToken(User user) {
         return Jwts.builder()
-                .claims((Map<String, ?>) kvHashMap)
-                .subject(user.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000*60*24))
-                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .id(user.getId().toString())
+                .claims(Map.of("name", user.getName()))
+                .subject(user.getEmail())
+                .issuedAt(new Date(System.currentTimeMillis() + 1000*60*24))
+                .signWith(getSingInKey())
                 .compact();
     }
 
-    private Key getKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+    private SecretKey getSingInKey() {
+        byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

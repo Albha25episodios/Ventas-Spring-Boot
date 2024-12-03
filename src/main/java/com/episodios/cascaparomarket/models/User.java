@@ -17,32 +17,18 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"userName"})})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"userName"})})
 
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
-    private String userName;
-    private String lastName;
-    private String firstName;
+    private String name;
+    private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
-    }
-
-    @Override
-    public String getPassword() {
-        return "";
-    }
-
-    @Override
-    public String getUsername() {
-        return "";
-    }
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Token> tokens;
 }

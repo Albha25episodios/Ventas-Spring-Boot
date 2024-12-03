@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+application:
+  security:
+    jwt:
+      secret-key: ""
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=DBprueba;encrypt=true;trustServerCertificate=true
+    username: episodios
+    password: 123456
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+    show-sql: false

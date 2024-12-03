@@ -1,9 +1,9 @@
 package com.episodios.cascaparomarket.controllers;
 
 
-import com.episodios.cascaparomarket.dtos.AuthResponseDTO;
-import com.episodios.cascaparomarket.dtos.LoginDTO;
-import com.episodios.cascaparomarket.dtos.RegisterDTO;
+import com.episodios.cascaparomarket.dtos.TokenResponseDTO;
+import com.episodios.cascaparomarket.dtos.LoginRequestDTO;
+import com.episodios.cascaparomarket.dtos.RegisterRequestDTO;
 import com.episodios.cascaparomarket.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +17,15 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     @CrossOrigin
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
-        return ResponseEntity.ok(authService.login(loginDTO));
-    }
+    public ResponseEntity<TokenResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        return ResponseEntity.ok(authService.login(loginRequestDTO));
+    }*/
 
     @PostMapping("/register")
     @CrossOrigin
-    public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterDTO registerDTO) {
-        return ResponseEntity.ok(authService.register(registerDTO));
+    public ResponseEntity<TokenResponseDTO> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+        return ResponseEntity.ok(authService.register(registerRequestDTO));
     }
 }

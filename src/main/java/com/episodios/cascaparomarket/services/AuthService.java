@@ -1,12 +1,14 @@
 package com.episodios.cascaparomarket.services;
 
-import com.episodios.cascaparomarket.dtos.AuthResponseDTO;
-import com.episodios.cascaparomarket.dtos.LoginDTO;
-import com.episodios.cascaparomarket.dtos.RegisterDTO;
+import com.episodios.cascaparomarket.config.ApplicationConfig;
+import com.episodios.cascaparomarket.dtos.TokenResponseDTO;
+import com.episodios.cascaparomarket.dtos.LoginRequestDTO;
+import com.episodios.cascaparomarket.dtos.RegisterRequestDTO;
 import com.episodios.cascaparomarket.models.Role;
 import com.episodios.cascaparomarket.models.User;
 import com.episodios.cascaparomarket.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,23 +16,19 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthResponseDTO login(LoginDTO loginDTO) {
-        return null;
-    }
-
-    public AuthResponseDTO register(RegisterDTO registerDTO) {
+    public TokenResponseDTO register(RegisterRequestDTO registerRequestDTO) {
         User user = User.builder()
-                .userName(registerDTO.getUsername())
-                .password(registerDTO.getPassword())
-                .firstName(registerDTO.getFistName())
-                .lastName(registerDTO.getLastName())
+                .name(registerRequestDTO.getUserName())
+                .email(registerRequestDTO.getUserEmail())
+                .password(passwordEncoder.encode(registerRequestDTO.getUserPassword()))
                 .role(Role.USER)
                 .build();
 
         userRepository.save(user);
 
-        return AuthResponseDTO.builder()
+        return TokenResponseDTO.builder()
                 .token(jwtService.getToken(user))
                 .build();
     }
