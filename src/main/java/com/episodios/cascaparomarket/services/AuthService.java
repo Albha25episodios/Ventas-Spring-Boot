@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -47,7 +49,25 @@ public class AuthService {
                         loginRequestDTO.getPassword()
                 )
         );
+        var user = userRepository.findByEmail(loginRequestDTO.getEmail()).orElseThrow();
+        System.out.println(user);
+        revokeAllUserTokens(user);
+        var savedToken = jwtService.getToken(user);
+        saveUserToken(user, savedToken);
+        return TokenResponseDTO.builder()
+                .token(jwtService.getToken(user))
+                .build();
+    }
 
+    private void revokeAllUserTokens(User user) {
+        List<Token> validateUserTokens = tokenRepository.findAllByUserIdAndExpiredFalseAndRevokedFalse(user.getId());
+        if (!validateUserTokens.isEmpty()) {
+            for (Token token : validateUserTokens) {
+                token.setExpired(true);
+                token.setRevoked(true);
+            }
+            tokenRepository.saveAll(validateUserTokens);
+        }
     }
 
     private void saveUserToken(User user, String jwtToken) {

@@ -17,11 +17,11 @@ public class AuthController {
 
     private final AuthService authService;
 
-    /*@PostMapping("/login")
+    @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<TokenResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         return ResponseEntity.ok(authService.login(loginRequestDTO));
-    }*/
+    }
 
     @PostMapping("/register")
     @CrossOrigin
