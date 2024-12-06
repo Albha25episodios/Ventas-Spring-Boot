@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
     List<Token> findAllByUserIdAndExpiredFalseAndRevokedFalse(Long user_id);
+
+    Token findByToken (String token);
 }
